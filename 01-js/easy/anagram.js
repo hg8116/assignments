@@ -19,6 +19,4 @@ function isAnagram(str1, str2) {
   return true
 }
 
-console.log(isAnagram("spar", "rasp"))
-
 module.exports = isAnagram
