@@ -8,7 +8,7 @@ function waitOneSecond() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve("waitOneSecond Completed")
-    }, 200)
+    }, 1000)
   })
 }
 
@@ -16,7 +16,7 @@ function waitTwoSecond() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve("waitTwoSecond Completed")
-    }, 200)
+    }, 1000)
   })
 }
 
@@ -24,7 +24,7 @@ function waitThreeSecond() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve("waitThreeSecond Completed")
-    }, 200)
+    }, 1000)
   })
 }
 
