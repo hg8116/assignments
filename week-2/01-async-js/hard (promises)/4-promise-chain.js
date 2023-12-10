@@ -46,4 +46,4 @@ function calculateTime() {
     })
 }
 
-calculateTime()
+module.export = { calculateTime }
