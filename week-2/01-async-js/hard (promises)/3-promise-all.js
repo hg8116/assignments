@@ -4,61 +4,42 @@
  * Print how long it took for all 3 promises to resolve.
  */
 
-function waitOneSecond() {
-  return new Promise((resolve, reject) => {
+function wait1(t) {
+  return new Promise((res, req) => {
     setTimeout(() => {
-      resolve("waitOneSecond Completed")
-    }, 1000)
+      res("1 sec passed")
+    }, t * 1000)
   })
 }
 
-function waitTwoSecond() {
-  return new Promise((resolve, reject) => {
+function wait2(t) {
+  return new Promise((res, req) => {
     setTimeout(() => {
-      resolve("waitTwoSecond Completed")
-    }, 1000)
+      res("2 sec passed")
+    }, t * 1000)
   })
 }
 
-function waitThreeSecond() {
-  return new Promise((resolve, reject) => {
+function wait3(t) {
+  return new Promise((res, req) => {
     setTimeout(() => {
-      resolve("waitThreeSecond Completed")
-    }, 1000)
+      res("3 sec passed")
+    }, t * 1000)
   })
 }
 
-function calculateTime() {
-  let start = Date.now()
-  return Promise.all([
-    waitOneSecond(),
-    waitTwoSecond(),
-    waitThreeSecond(),
-  ]).then((res) => {
-    console.log(
-      res[0],
-      res[1],
-      res[2],
-      "All 3 promises resolved in",
-      Date.now() - start,
-      "ms"
-    )
-    return [
-      res[0],
-      res[1],
-      res[2],
-      "All 3 promises resolved in",
-      Date.now() - start,
-      "ms",
-    ]
-  })
+async function calculateTime(t1, t2, t3) {
+  let start = new Date().getSeconds()
+  return (
+    (await Promise.all([wait1(t1), wait2(t2), wait3(t3)]).then(() => {
+      let stop = new Date().getSeconds()
+      if (start > stop) {
+        start = 60 - start
+        return start + stop
+      }
+      return stop - start
+    })) * 1000
+  )
 }
 
-calculateTime()
-
-module.exports = {
-  calculateTime,
-  waitOneSecond,
-  waitTwoSecond,
-  waitThreeSecond,
-}
+module.exports = calculateTime

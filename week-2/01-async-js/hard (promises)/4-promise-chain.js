@@ -5,45 +5,47 @@
  * Compare it with the results from 3-promise-all.js
  */
 
-function waitOneSecond() {
-  return new Promise((resolve, reject) => {
+function wait1(t) {
+  return new Promise((res, req) => {
     setTimeout(() => {
-      resolve("waitOneSecond Completed")
-    }, 1000)
+      res("1 second passed")
+    }, t * 1000)
   })
 }
 
-function waitTwoSecond() {
-  return new Promise((resolve, reject) => {
+function wait2(t) {
+  return new Promise((res, req) => {
     setTimeout(() => {
-      resolve("waitTwoSecond Completed")
-    }, 1000)
+      res("2 second passed")
+    }, t * 1000)
   })
 }
 
-function waitThreeSecond() {
-  return new Promise((resolve, reject) => {
+function wait3(t) {
+  return new Promise((res, req) => {
     setTimeout(() => {
-      resolve("waitThreeSecond Completed")
-    }, 1000)
+      res("3 second passed")
+    }, t * 1000)
   })
 }
 
-function calculateTime() {
-  let start = Date.now()
-  waitOneSecond()
-    .then((res) => {
-      console.log(res)
-      return waitTwoSecond()
-    })
-    .then((res) => {
-      console.log(res)
-      return waitThreeSecond()
-    })
-    .then((res) => {
-      console.log(res)
-      console.log("All 3 promises resolved in", Date.now() - start, "ms")
-    })
+async function calculateTime(t1, t2, t3) {
+  let start = new Date().getSeconds()
+
+  await wait1(t1)
+  await wait2(t2)
+  await wait3(t3)
+
+  let stop = new Date().getSeconds()
+
+  if (start > stop) {
+    start = 60 - start
+    let data = start + stop
+    return data * 1000
+  }
+
+  let diff = stop - start
+  return diff * 1000
 }
 
-module.export = { calculateTime }
+module.exports = calculateTime
